@@ -1,0 +1,44 @@
+.PortfolioItems {
+  background-color: #2f3034;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: flex-end;
+  border-radius: 10px;
+  width: 200px;
+  height: 126px;
+  padding: 0.5rem 1rem;
+  row-gap: 10px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
+}
+.PortfolioItems.active {
+  background-color: #9a9762;
+}
+.PortfolioItems.notSelectable {
+  cursor: default;
+}
+.PortfolioItems.active div {
+  color: #535334;
+}
+.PortfolioItems :nth-child(1) {
+  color: white;
+  grid-column: 1/-1;
+}
+.PortfolioItems div {
+  max-width: 20px;
+  text-transform: capitalize;
+  color: #8a8b8d;
+  font-weight: bold;
+}
+.PortfolioItems span {
+  justify-self: right;
+  color: white;
+}
+@media (max-width: 1000px) {
+  .PortfolioItems {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+}

@@ -1,0 +1,40 @@
+.PortfolioData {
+  width: 200px;
+}
+.header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: contain;
+  /* box-shadow: #9a9762b9 0px 1px 4px, #9a9762 0px 0px 0px 3px; */
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header :nth-child(1) {
+  color: #f5f5f5;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  text-transform: capitalize;
+}
+.flex :nth-child(1) {
+  color: #898a8a;
+  font-size: 0.9rem;
+}
+.flex :nth-child(2) {
+  color: #f5f5f5;
+}
+@media (max-width: 1000px) {
+  .PortfolioData {
+    width: 100%;
+  }
+}

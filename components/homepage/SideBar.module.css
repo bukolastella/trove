@@ -1,0 +1,66 @@
+.SidebarHeader {
+  margin-bottom: 3rem;
+}
+.SidebarHeader :nth-child(1) {
+  color: #f5f5f5;
+  margin-bottom: 0.5rem;
+}
+.SidebarHeader div {
+  font-size: 1.4rem;
+  color: #f5f5f5;
+}
+.SidebarHeader span {
+  font-size: 0.9rem;
+  color: #565759;
+}
+.SidebarFlex {
+  text-transform: capitalize;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  color: #565759;
+  cursor: pointer;
+}
+.SidebarFlex.active {
+  color: #9a9761;
+}
+.SidebarFlex :nth-child(1) {
+  margin-right: 1rem;
+  font-size: 1.5rem;
+}
+.Iconflex {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+.Iconflex :nth-child(2) {
+  display: none;
+  cursor: pointer;
+}
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #1f20246c;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+}
+@media (max-width: 1232px) {
+  .Sidebar {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .Sidebar.menuState {
+    display: block;
+    z-index: 10;
+    background-color: #0c0d11;
+    height: 100%;
+    padding: 3rem 2rem;
+  }
+  .Iconflex :nth-child(2) {
+    display: block;
+  }
+}

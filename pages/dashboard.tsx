@@ -1,16 +1,17 @@
-import AuthPages from "../components/auth/AuthPages";
-import { auth } from "../Firestore/Firestore";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../store/auth-slice";
+import HomePage from "../components/homepage/HomePage";
 import { RootState } from "../store";
+import { auth } from "../Firestore/Firestore";
 
-const Home = () => {
+const Dashboard = () => {
   const loginState = useSelector((state: RootState) => state.auth.isLogin);
-  const dispatch = useDispatch();
   auth.onAuthStateChanged((user) => {
     dispatch(authActions.setLogin(!!user));
   });
-  return loginState && <AuthPages />;
+  const dispatch = useDispatch();
+  return loginState && <HomePage />;
 };
 
-export default Home;
+export default Dashboard;
