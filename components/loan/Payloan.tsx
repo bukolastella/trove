@@ -11,17 +11,18 @@ import { pageActions } from "../../store/page-slice";
 interface Props {
   menuToggleHangler: () => void;
 }
+
 const Payloan: React.FC<Props> = ({ menuToggleHangler }) => {
   const dispatch = useDispatch();
   const userdata = useSelector((state: RootState) => state.page.userdata);
   const useremail = useSelector((state: RootState) => state.page.useremail);
   const userid = useSelector((state: RootState) => state.page.userid);
   const monthlymoney = Math.ceil(userdata.loanamount / userdata.duration);
-  const publicKey = "pk_test_7c22b99ee1892e038577e10159c92c3e84598e84";
+  const publicKey = process.env.NEXT_PUBLIC_API_KEY || "";
   const componentProps = {
     email: useremail,
     amount: monthlymoney * 100,
-    publicKey,
+    publicKey: publicKey,
     text: "Pay Now",
     onSuccess: async () => {
       alert(
@@ -72,3 +73,8 @@ const Payloan: React.FC<Props> = ({ menuToggleHangler }) => {
 };
 
 export default Payloan;
+export async function getServerSideProps() {
+  return {
+    props: {},
+  };
+}

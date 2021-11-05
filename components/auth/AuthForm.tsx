@@ -52,7 +52,6 @@ const AuthForm = () => {
               cred.user.updateProfile({
                 displayName: userState,
               });
-              console.log(cred.user);
               router.push("/dashboard");
             })
             .catch((error) => {
@@ -76,7 +75,6 @@ const AuthForm = () => {
           auth
             .signInWithEmailAndPassword(emailState, passwordState)
             .then((cred: object) => {
-              console.log(cred);
               router.push("/dashboard");
             })
             .catch((error) => {

@@ -24,7 +24,6 @@ const Loan: React.FC<Props> = ({ menuToggleHangler }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   if (loading) dispatch(pageActions.setLoadingState(true));
-
   const durationHandler = (event: any) => {
     setDuration(event.target.value);
     if (Number(event.target.value) > 12 || Number(event.target.value) < 6) {
@@ -65,7 +64,7 @@ const Loan: React.FC<Props> = ({ menuToggleHangler }) => {
       duration: Number(duration),
     });
     const citiesRef = collection(db, "troveusers");
-    const q = query(citiesRef, where("user", "==", "testoooo"));
+    const q = query(citiesRef, where("user", "==", user?.displayName));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       dispatch(

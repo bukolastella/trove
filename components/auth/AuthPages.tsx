@@ -8,7 +8,6 @@ import classes from "./AuthPages.module.css";
 
 const AuthPages = () => {
   const loading = useSelector((state: RootState) => state.page.isLoading);
-  console.log(loading);
   return (
     <>
       {!loading && (

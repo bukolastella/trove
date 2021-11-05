@@ -41,7 +41,7 @@ const HomePage = () => {
   useEffect(() => {
     const getUser = async () => {
       const citiesRef = collection(db, "troveusers");
-      const q = query(citiesRef, where("user", "==", "testoooo"));
+      const q = query(citiesRef, where("user", "==", user?.displayName));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         dispatch(
@@ -54,7 +54,7 @@ const HomePage = () => {
       });
     };
     getUser();
-  }, [dispatch, user?.email, userid]);
+  }, [dispatch, user?.email, userid, user?.displayName]);
   return (
     <div className={classes.HomePage}>
       <SideBar menuState={menuState} closeMenu={closeMenu} />
