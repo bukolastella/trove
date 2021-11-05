@@ -5,9 +5,12 @@ import googlelogo from "../../assests/14a344191a53331015b7.svg";
 import logo from "../../public/logo.png";
 import { auth } from "../../Firestore/Firestore";
 import { useRouter } from "next/dist/client/router";
+import { useDispatch } from "react-redux";
+import { pageActions } from "../../store/page-slice";
 
 const AuthForm = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [signUpState, setSignUpState] = useState(false);
   const [userError, setUserError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -16,7 +19,10 @@ const AuthForm = () => {
   const [emailState, setEmailState] = useState("");
   const [passwordState, setPasswordState] = useState("");
   const [checkState, setCheckState] = useState(false);
-  const submitHandler = () => {
+  const [loading, setLoading] = useState(false);
+  if (loading) dispatch(pageActions.setLoadingState(true));
+  const submitHandler = async () => {
+    setLoading(true);
     //validation if the fields are empty
     userBlurHandler();
     emailBlurHandler();
@@ -39,19 +45,22 @@ const AuthForm = () => {
       ) {
         return;
       } else {
-        auth
-          .createUserWithEmailAndPassword(emailState, passwordState)
-          .then((cred: any) => {
-            cred.user.updateProfile({
-              displayName: userState,
+        const fetching = async () => {
+          auth
+            .createUserWithEmailAndPassword(emailState, passwordState)
+            .then((cred: any) => {
+              cred.user.updateProfile({
+                displayName: userState,
+              });
+              console.log(cred.user);
+              router.push("/dashboard");
+            })
+            .catch((error) => {
+              setEmailError(error.message);
+              console.log(error.message);
             });
-            console.log(cred.user);
-            router.push("/dashboard");
-          })
-          .catch((error) => {
-            setEmailError(error.message);
-            console.log(error.message);
-          });
+        };
+        await fetching();
       }
     }
     //
@@ -63,16 +72,19 @@ const AuthForm = () => {
       if (emailError.trim().length !== 0 || passwordError.trim().length !== 0) {
         return;
       } else {
-        auth
-          .signInWithEmailAndPassword(emailState, passwordState)
-          .then((cred: object) => {
-            console.log(cred);
-            router.push("/dashboard");
-          })
-          .catch((error) => {
-            setEmailError(error.message);
-            console.log(error.message);
-          });
+        const fetching = async () => {
+          auth
+            .signInWithEmailAndPassword(emailState, passwordState)
+            .then((cred: object) => {
+              console.log(cred);
+              router.push("/dashboard");
+            })
+            .catch((error) => {
+              setEmailError(error.message);
+              console.log(error.message);
+            });
+        };
+        await fetching();
       }
     }
   };

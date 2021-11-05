@@ -10,6 +10,9 @@ const pageSlice = createSlice({
       duration: 0,
       paidloan: 0,
     },
+    useremail: "",
+    userid: "",
+    isLoading: false,
   },
   reducers: {
     setPagePath(state, action) {
@@ -20,6 +23,15 @@ const pageSlice = createSlice({
     },
     setUserData(state, action) {
       state.userdata = action.payload;
+    },
+    setUserEmail(state, action) {
+      state.useremail = action.payload;
+    },
+    setUserId(state, action) {
+      state.userid = action.payload;
+    },
+    setLoadingState(state, action) {
+      state.isLoading = action.payload;
     },
   },
 });

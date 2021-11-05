@@ -9,10 +9,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import classes from "./SideBar.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { pageActions } from "../../store/page-slice";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "next/dist/client/router";
+import { RootState } from "../../store";
 
 interface Props {
   menuState: boolean;
@@ -21,6 +22,7 @@ interface Props {
 const SideBar: React.FC<Props> = ({ menuState, closeMenu }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const pagePath = useSelector((state: RootState) => state.page.pagePath);
   const auth = getAuth();
   const user = auth.currentUser;
   const closeHandler = () => {
@@ -46,7 +48,9 @@ const SideBar: React.FC<Props> = ({ menuState, closeMenu }) => {
         </div>
 
         <div
-          className={`${classes.SidebarFlex} ${classes.active}`}
+          className={`${classes.SidebarFlex} ${
+            pagePath === "/dashboard" && classes.active
+          }`}
           onClick={() => changePage("/dashboard")}
         >
           <FontAwesomeIcon icon={faColumns} />
@@ -54,14 +58,18 @@ const SideBar: React.FC<Props> = ({ menuState, closeMenu }) => {
         </div>
 
         <div
-          className={classes.SidebarFlex}
+          className={`${classes.SidebarFlex} ${
+            pagePath === "/loan" && classes.active
+          }`}
           onClick={() => changePage("/loan")}
         >
           <FontAwesomeIcon icon={faHandHoldingUsd} />
           <span>loans</span>
         </div>
         <div
-          className={classes.SidebarFlex}
+          className={`${classes.SidebarFlex} ${
+            pagePath === "/update" && classes.active
+          }`}
           onClick={() => changePage("/update")}
         >
           <FontAwesomeIcon icon={faUserEdit} />
@@ -72,6 +80,7 @@ const SideBar: React.FC<Props> = ({ menuState, closeMenu }) => {
           onClick={() => {
             auth.signOut();
             router.push("/");
+            dispatch(pageActions.setLoadingState(false));
           }}
         >
           <FontAwesomeIcon icon={faSignOutAlt} />

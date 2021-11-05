@@ -1,8 +1,7 @@
-import { faBars, faPencilAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import HomeHeader from "../homepage/HomeHeader";
-import SideBar from "../homepage/SideBar";
 import classes from "./Update.module.css";
 import { getAuth, updateProfile, updatePassword } from "firebase/auth";
 
@@ -16,17 +15,25 @@ const Update: React.FC<Props> = ({ menuToggleHangler }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   const [newUser, setNewUser] = useState(user?.displayName);
-  const [newPassword, setNewPassword] = useState("jhshjkl");
+  const [newPassword, setNewPassword] = useState("");
   const submitHandler = () => {
     if (user != null) {
-      updateProfile(user, {
-        displayName: newUser,
-      })
-        .then(() => {})
-        .catch((error) => console.log(error));
+      if (newUser?.trim().length === 0 || newUser === user.displayName) {
+        setNewUser(user.displayName);
+        return;
+      } else {
+        updateProfile(user, {
+          displayName: newUser,
+        })
+          .then(() => {})
+          .catch((error) => console.log(error));
+      }
+
       //
-      updatePassword(user, newPassword);
-      console.log(user?.displayName, user?.email);
+      if (newPassword === "12345") return;
+      else {
+        updatePassword(user, newPassword);
+      }
     }
   };
   return (
@@ -57,7 +64,7 @@ const Update: React.FC<Props> = ({ menuToggleHangler }) => {
         {!passwordFocus && (
           <input
             type="password"
-            value={newPassword}
+            value={"12345"}
             readOnly
             style={{ cursor: "default", pointerEvents: "none" }}
           />
