@@ -3,7 +3,7 @@
   grid-template-columns: 230px 3fr;
   padding: 3rem;
   background-image: linear-gradient(to bottom right, #0c0d11, #141517, #1f2024);
-  height: 100vh;
+  min-height: 100vh;
 }
 .Home {
   background-image: linear-gradient(to left, #18191d, #2a2b2f);
@@ -56,21 +56,23 @@
     cursor: pointer;
   }
   .HomePage {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: 1fr; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 }
 @media (max-width: 1000px) {
   .Home {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
+    width: 100%;
   }
   .HomeChart {
     height: 350px;
-  }
-  .HomePage {
-    height: 100%;
   }
 }
 @media (max-width: 640px) {

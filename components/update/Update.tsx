@@ -1,15 +1,10 @@
-import { faBars, faEdit, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faPencilAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import HomeHeader from "../homepage/HomeHeader";
 import SideBar from "../homepage/SideBar";
 import classes from "./Update.module.css";
-import {
-  getAuth,
-  updateProfile,
-  sendPasswordResetEmail,
-  updatePassword,
-} from "firebase/auth";
+import { getAuth, updateProfile, updatePassword } from "firebase/auth";
 
 interface Props {
   menuToggleHangler: () => void;
@@ -36,7 +31,7 @@ const Update: React.FC<Props> = ({ menuToggleHangler }) => {
   };
   return (
     <div className={classes.update}>
-      <HomeHeader menuToggleHangler={menuToggleHangler} name="Update Profile" />
+      <HomeHeader menuToggleHangler={menuToggleHangler} name="Profile" />
       <div className={classes.fieldGrid}>
         <label>Email</label>
         <input type="text" value={user?.email || ""} readOnly />
@@ -54,7 +49,7 @@ const Update: React.FC<Props> = ({ menuToggleHangler }) => {
           />
         )}
         <span onClick={() => setUserFocus(true)}>
-          <FontAwesomeIcon icon={faEdit} />
+          <FontAwesomeIcon icon={faPencilAlt} />
         </span>
       </div>
       <div className={classes.fieldGrid}>
@@ -77,7 +72,7 @@ const Update: React.FC<Props> = ({ menuToggleHangler }) => {
           />
         )}
         <span onClick={() => setPasswordFocus(true)}>
-          <FontAwesomeIcon icon={faEdit} />
+          <FontAwesomeIcon icon={faPencilAlt} />
         </span>
       </div>
       <div className={classes.submit}>

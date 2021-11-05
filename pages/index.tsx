@@ -10,7 +10,7 @@ const Home = () => {
   auth.onAuthStateChanged((user) => {
     dispatch(authActions.setLogin(!!user));
   });
-  return loginState && <AuthPages />;
+  return !loginState && <AuthPages />;
 };
 
 export default Home;

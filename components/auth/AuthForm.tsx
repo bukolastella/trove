@@ -4,12 +4,9 @@ import classes from "./AuthForm.module.css";
 import googlelogo from "../../assests/14a344191a53331015b7.svg";
 import logo from "../../public/logo.png";
 import { auth } from "../../Firestore/Firestore";
-import { useDispatch } from "react-redux";
-import { authActions } from "../../store/auth-slice";
 import { useRouter } from "next/dist/client/router";
 
 const AuthForm = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
   const [signUpState, setSignUpState] = useState(false);
   const [userError, setUserError] = useState("");
@@ -42,7 +39,6 @@ const AuthForm = () => {
       ) {
         return;
       } else {
-        console.log("signed up");
         auth
           .createUserWithEmailAndPassword(emailState, passwordState)
           .then((cred: any) => {
@@ -67,7 +63,6 @@ const AuthForm = () => {
       if (emailError.trim().length !== 0 || passwordError.trim().length !== 0) {
         return;
       } else {
-        console.log("logged in");
         auth
           .signInWithEmailAndPassword(emailState, passwordState)
           .then((cred: object) => {
@@ -81,11 +76,6 @@ const AuthForm = () => {
       }
     }
   };
-  // //listens for auth changes
-  // auth.onAuthStateChanged((user) => {
-  //   dispatch(authActions.setLogin(!!user));
-  // });
-  //
   const userBlurHandler = () => {
     userState.trim().length === 0 &&
       setUserError("please fill in your username");

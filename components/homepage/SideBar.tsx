@@ -9,21 +9,17 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import classes from "./SideBar.module.css";
-import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { pageActions } from "../../store/page-slice";
-import {
-  getAuth,
-  updateProfile,
-  sendPasswordResetEmail,
-  updatePassword,
-} from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import { useRouter } from "next/dist/client/router";
 
 interface Props {
   menuState: boolean;
   closeMenu: () => void;
 }
 const SideBar: React.FC<Props> = ({ menuState, closeMenu }) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const auth = getAuth();
   const user = auth.currentUser;
@@ -69,9 +65,15 @@ const SideBar: React.FC<Props> = ({ menuState, closeMenu }) => {
           onClick={() => changePage("/update")}
         >
           <FontAwesomeIcon icon={faUserEdit} />
-          <span>update profile</span>
+          <span>profile</span>
         </div>
-        <div className={classes.SidebarFlex}>
+        <div
+          className={classes.SidebarFlex}
+          onClick={() => {
+            auth.signOut();
+            router.push("/");
+          }}
+        >
           <FontAwesomeIcon icon={faSignOutAlt} />
           <span>logout</span>
         </div>

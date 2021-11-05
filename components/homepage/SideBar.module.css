@@ -49,9 +49,10 @@
 @media (max-width: 1232px) {
   .Sidebar {
     display: none;
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
+    height: 100%;
   }
   .Sidebar.menuState {
     display: block;
