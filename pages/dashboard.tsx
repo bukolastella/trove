@@ -4,7 +4,6 @@ import { authActions } from "../store/auth-slice";
 import HomePage from "../components/homepage/HomePage";
 import { RootState } from "../store";
 import { auth } from "../Firestore/Firestore";
-import Spinner from "../components/Spinner/Spinner";
 
 const Dashboard = () => {
   const loginState = useSelector((state: RootState) => state.auth.isLogin);

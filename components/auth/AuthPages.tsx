@@ -10,12 +10,10 @@ const AuthPages = () => {
   const loading = useSelector((state: RootState) => state.page.isLoading);
   return (
     <>
-      {!loading && (
-        <div className={classes.AuthPages}>
-          <Hero />
-          <AuthForm />
-        </div>
-      )}
+      <div className={classes.AuthPages}>
+        <Hero />
+        <AuthForm />
+      </div>
       {loading && <Loader />}
     </>
   );

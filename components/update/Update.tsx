@@ -16,7 +16,6 @@ const Update: React.FC<Props> = ({ menuToggleHangler }) => {
   const user = auth.currentUser;
   const [newUser, setNewUser] = useState(user?.displayName);
   const [newPassword, setNewPassword] = useState("");
-  console.log(user?.displayName);
   const submitHandler = () => {
     if (user != null) {
       if (newUser?.trim().length === 0 || newUser === user.displayName) {

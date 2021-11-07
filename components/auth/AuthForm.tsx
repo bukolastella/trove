@@ -19,10 +19,11 @@ const AuthForm = () => {
   const [emailState, setEmailState] = useState("");
   const [passwordState, setPasswordState] = useState("");
   const [checkState, setCheckState] = useState(false);
-  const [loading, setLoading] = useState(false);
-  if (loading) dispatch(pageActions.setLoadingState(true));
-  const submitHandler = async () => {
-    setLoading(true);
+  // const [loading, setLoading] = useState(false);
+  // if (loading) dispatch(pageActions.setLoadingState(true));
+  const submitHandler = () => {
+    // setLoading(true);
+    // dispatch(pageActions.setLoadingState(true));
     //validation if the fields are empty
     userBlurHandler();
     emailBlurHandler();
@@ -45,24 +46,23 @@ const AuthForm = () => {
       ) {
         return;
       } else {
-        const fetching = async () => {
-          auth
-            .createUserWithEmailAndPassword(emailState, passwordState)
-            .then((cred: any) => {
-              cred.user.updateProfile({
-                displayName: userState,
-              });
-              router.push("/dashboard");
-            })
-            .catch((error) => {
-              setEmailError(error.message);
-              console.log(error.message);
+        dispatch(pageActions.setLoadingState(true));
+        auth
+          .createUserWithEmailAndPassword(emailState, passwordState)
+          .then((cred: any) => {
+            cred.user.updateProfile({
+              displayName: userState,
             });
-        };
-        await fetching();
+            router.push("/dashboard");
+          })
+          .catch((error) => {
+            dispatch(pageActions.setLoadingState(false));
+            setEmailError(error.message);
+            console.log(error.message);
+          });
       }
     }
-    //
+    //sign in
     if (!signUpState) {
       //validation if the fields are empty
       if (emailState.trim().length === 0 || passwordState.trim().length === 0) {
@@ -71,18 +71,18 @@ const AuthForm = () => {
       if (emailError.trim().length !== 0 || passwordError.trim().length !== 0) {
         return;
       } else {
-        const fetching = async () => {
-          auth
-            .signInWithEmailAndPassword(emailState, passwordState)
-            .then((cred: object) => {
-              router.push("/dashboard");
-            })
-            .catch((error) => {
-              setEmailError(error.message);
-              console.log(error.message);
-            });
-        };
-        await fetching();
+        dispatch(pageActions.setLoadingState(true));
+        auth
+          .signInWithEmailAndPassword(emailState, passwordState)
+          .then(() => {
+            dispatch(pageActions.setLoadingState(false));
+            router.push("/dashboard");
+          })
+          .catch((error) => {
+            dispatch(pageActions.setLoadingState(false));
+            setEmailError(error.message);
+            console.log(error.message);
+          });
       }
     }
   };
