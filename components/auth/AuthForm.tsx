@@ -22,18 +22,15 @@ const AuthForm = () => {
   const [checkState, setCheckState] = useState(false);
 
   const googleSignin = () => {
-    dispatch(pageActions.setLoadingState(true));
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     signInWithPopup(auth, provider)
       .then(() => {
-        dispatch(pageActions.setLoadingState(false));
         router.push("/dashboard");
       })
       .catch((error) => {
         const errorMessage = error.message;
         setEmailError(errorMessage);
-        dispatch(pageActions.setLoadingState(false));
       });
   };
   const submitHandler = () => {
