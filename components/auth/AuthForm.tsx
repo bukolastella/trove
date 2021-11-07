@@ -22,22 +22,18 @@ const AuthForm = () => {
   const [checkState, setCheckState] = useState(false);
 
   const googleSignin = () => {
+    dispatch(pageActions.setLoadingState(true));
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     signInWithPopup(auth, provider)
-      .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        const user = result.user;
-        // console.log(user, token);
+      .then(() => {
+        dispatch(pageActions.setLoadingState(false));
         router.push("/dashboard");
       })
       .catch((error) => {
         const errorMessage = error.message;
         setEmailError(errorMessage);
-        // const email = error.email;
-        // const credential = GoogleAuthProvider.credentialFromError(error);
-        // console.log(errorMessage, email, credential);
+        dispatch(pageActions.setLoadingState(false));
       });
   };
   const submitHandler = () => {
