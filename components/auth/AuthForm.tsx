@@ -7,6 +7,7 @@ import { auth } from "../../Firestore/Firestore";
 import { useRouter } from "next/dist/client/router";
 import { useDispatch } from "react-redux";
 import { pageActions } from "../../store/page-slice";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const AuthForm = () => {
   const router = useRouter();
@@ -19,11 +20,27 @@ const AuthForm = () => {
   const [emailState, setEmailState] = useState("");
   const [passwordState, setPasswordState] = useState("");
   const [checkState, setCheckState] = useState(false);
-  // const [loading, setLoading] = useState(false);
-  // if (loading) dispatch(pageActions.setLoadingState(true));
+
+  const googleSignin = () => {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential?.accessToken;
+        const user = result.user;
+        // console.log(user, token);
+        router.push("/dashboard");
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setEmailError(errorMessage);
+        // const email = error.email;
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+        // console.log(errorMessage, email, credential);
+      });
+  };
   const submitHandler = () => {
-    // setLoading(true);
-    // dispatch(pageActions.setLoadingState(true));
     //validation if the fields are empty
     userBlurHandler();
     emailBlurHandler();
@@ -221,7 +238,7 @@ const AuthForm = () => {
       </div>
 
       {/* google btn block */}
-      <button className={classes.googlebtn}>
+      <button className={classes.googlebtn} onClick={googleSignin}>
         <img src={googlelogo.src} alt="google logo" />
         {signUpState ? "sign up with google" : "sign in with google"}
       </button>
