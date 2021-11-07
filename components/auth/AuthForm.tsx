@@ -53,6 +53,7 @@ const AuthForm = () => {
             cred.user.updateProfile({
               displayName: userState,
             });
+            dispatch(pageActions.setLoadingState(false));
             router.push("/dashboard");
           })
           .catch((error) => {
